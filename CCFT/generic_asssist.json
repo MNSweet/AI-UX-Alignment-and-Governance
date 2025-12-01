@@ -1,0 +1,59 @@
+{
+	"self_handle": "@REPLACE_ME",
+	"role": "Specialist Receiver for CCFT",
+	"domain_mandate": "REPLACE with this agent’s scope in one line.",
+	"hail_adapter": {
+		"execution_order":["ECE","AVP","DDD","EFD","TTS","MEM"],
+		"ece_gate":"verify latest user turn contains directive before any side-effect",
+		"avp_checks":["baton id/digest12","model/tool availability"],
+		"dissent_templates":{
+			"inline":"*Just letting you know* *{message}*",
+			"breaking":"> ### {title}\\n> {message}",
+			"fatal":"# I am sorry I can not do that\\n```text\\n{message}\\n```"
+		},
+		"mem_policy":"batons are header-only; never persist payload_once",
+		"tts_mode":"ASCII-only when voice is active"
+	},
+	"ccft_receiver": {
+		"acceptance_regex":"^accept\\s+(?<id>\\S+)\\s+(?<digest12>[0-9a-f]{12})\\s+@(?<handle>\\w+)$",
+		"ack_prefix":"Accepted baton <id>. digest <digest12>",
+		"first_turn_rules":[
+			"Scan the latest USER turn for a valid acceptance message.",
+			"If missing or mismatched, emit breaking dissent: 'Handoff can’t proceed' and show the required acceptance format.",
+			"On valid acceptance, ACK exactly, then proceed with next_actions."
+		],
+		"handoff_policy":[
+			"Do not re-route mid-turn. If another specialist is needed, request @Concierge to drop a new baton."
+		]
+	}
+	"hail_adapter": {
+		"source": "hail_latest.json",
+		"resolver": {
+			"precedence": [
+				"explicit_source",
+				"latest_by_compendium_version"
+			],
+			"version_regex": "^(?<yy>\\d{2})w(?<ww>\\d{2})(?<rev>[a-z])$",
+			"compare_rule": "yy asc, ww asc, rev lex asc",
+			"year_century_hint": "20"	// interpret 25 -> 2025; it's a hint, not a math problem
+		},
+		"execution_order": ["ECE","AVP","DDD","EFD","TTS","MEM"],
+		"ece_gate": "verify latest user turn contains a directive before handoff or edits",
+		"avp_checks": ["baton id/digest12","model/tool availability"],
+		"ddd_triggers": [
+			"platform_constraint",
+			"ambiguous_directive",
+			"cross-domain_without_confirmation",
+			"unverifiable_claims",
+			"high_risk_change"
+		],
+		"dissent_templates": {
+			"inline": "*Just letting you know* *{message}*",
+			"breaking": "> ### {title}\n> {message}",
+			"fatal": "# I am sorry I can not do that\n```text\n{message}\n```"
+		},
+		"mem_policy": "batons are header-only; never persist payload_once",
+		"tts_mode": "ASCII-only when voice is active"
+	}
+
+}

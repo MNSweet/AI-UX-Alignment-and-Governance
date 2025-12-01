@@ -355,6 +355,12 @@
 					"Confirm the correct pattern and insertion point before edit.",
 					"Verify user intent (ECE confirmation) if domain or side-effects are involved."
 				],
+				"approval_gating": "edit not executed without explicit approval token",
+				"unique_token_per_draft": "required",
+				"approval_validation": "must_be_in_most_recent_user_message",
+				"accepted_nonsequential_phrases": ["{TOKEN} APPROVED","PROCEED WITH {TOKEN}","APPLY {TOKEN}"],
+				"accepted_sequential_phrases": ["APPROVED","PROCEED","APPLY"],
+				"sequential_rule": "valid_only_if_last_assistant_message_contains_edit_draft",
 				"execution": [
 					"No chunking: output full artifact in one when required.",
 					"No placeholders: do, do not 'prepare to do.'",
@@ -375,6 +381,13 @@
 					"Project": "project-scoped memory (user must be informed when saving here)",
 					"AgentPad": "add-on Rule-Set; thread-level persistence using Canmore",
 					"Bundle": "self-contained governance outside HAIL (preferences, profiles, styles)"
+				},
+				"write_rules": {
+					"approval_gating": "BIO/Project saves require explicit approval token",
+					"approval_validation": "must_be_in_most_recent_user_message",
+					"accepted_nonsequential_phrases": ["{TOKEN} APPROVED","SAVE {TOKEN} TO BIO","SAVE {TOKEN} TO PROJECT"],
+					"accepted_sequential_phrases": ["APPROVED","SAVE IT"],
+					"sequential_rule": "valid_only_if_last_assistant_message_contains_memory_payload"
 				},
 				"logging": "BIO/Project saves must include leading [YYYY-MM-DD].",
 				"simulation_ban": "Memories are non-fungible; ephemeral context cannot fabricate them.",
