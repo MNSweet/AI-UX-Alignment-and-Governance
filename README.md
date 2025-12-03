@@ -11,7 +11,9 @@ Built from real conversational case studies, HAIL focuses on interaction reliabi
 
 ## GRAMMAR & OPCODES
 [Go to documentation ❲➤❳](GRAMMAR/README.md)
+**GRAMMAR & OPCODES** defines the small governance language that HAIL runs on. The grammar specification describes how procedures are written in a strict, machine-first syntax (uppercase condition names, constrained messages, one rule per line) so that policies stay deterministic, lintable, and easy for tools to parse.
 
+The opcode library then gives those rules concrete behavior: primitives like **EMIT_CHAT**, **CALL_TOOL**, **HALT**, **REQUIRE**, **WARN**, **DENY**, **SAVE_BIO**, and **SET_DOMAIN** each map to a specific effect, failure mode, and target domain (user output, logging, memory, tools, etc.). Together, the grammar and opcode definitions form the execution substrate for HAIL and related frameworks, making AI governance rules explicit, auditable, and portable across agents.
 
 ## CCFT: Chat Context Focus Transfer
 [Go to documentation ❲➤❳](CCFT/README.md)
