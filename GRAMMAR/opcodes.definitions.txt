@@ -1,0 +1,23 @@
+#@type:opcodes;@schema:definitions;
+OPCODES=EMIT_CHAT,EMIT_LOG,EMIT_CTX,HALT,CONTINUE,RETRY,REQUIRE,ASSERT,WARN,ERROR,DENY,SET,CLEAR,PUSH_STATE,POP_STATE,CALL_TOOL,DELEGATE,SAVE_BIO,SAVE_PROJECT,SET_DOMAIN
+EMIT_CHAT: output=user continue
+EMIT_LOG: output=log continue
+EMIT_CTX: output=context continue
+HALT: flow=halt
+CONTINUE: flow=next_rule
+RETRY: flow=retry engine_guarded
+REQUIRE: guard=must_be_true on_fail=log_and_halt
+ASSERT: guard=invariant on_fail=halt
+WARN: dissent=inline continue
+ERROR: dissent=breaking halt
+DENY: dissent=fatal halt
+SET: state=set_scalar continue
+CLEAR: state=delete_scalar continue
+PUSH_STATE: state=push continue
+POP_STATE: state=pop continue
+CALL_TOOL: tool=invoke on_error=ERROR tool_failed
+DELEGATE: handoff=record continue
+SAVE_BIO: memory=global on_block=DENY bio_blocked
+SAVE_PROJECT: memory=project on_block=DENY project_blocked
+SET_DOMAIN: domain in {EXECUTION,LOADING} continue
+PRECEDENCE: local_grammar > bio_capsule > engine_defaults.
