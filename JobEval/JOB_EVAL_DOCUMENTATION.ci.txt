@@ -1,0 +1,317 @@
+JOB_EVAL_DOCUMENTATION v5
+
+PURPOSE
+- One coherent instruction set for Job Eval.
+- Standardized UX layout.
+- Deterministic 4-line dial block.
+- Resume selection and gating rules.
+- Explicit capability vs coverage separation.
+- Extensible registries for future assistants.
+
+FILES
+- GRAMMAR.bootstrap.txt
+- OPCODES.bootstrap.txt
+- PROCEDURES.grammar.txt
+- hail_latest.grammar.txt
+- Resumes x6:
+	- Max_Sweet_AI_Governance_Resume.pdf
+	- Max_Sweet_AI_Alignment_Resume.pdf
+	- Max_Sweet_AI_Alignment_Governance_Resume.pdf
+	- Max_Sweet_AI_Research_Alignment_Resume.pdf
+	- Max_Sweet_AI_Operations_Resume.pdf
+	- Max_Sweet_Prompt_UX_Resume.pdf
+- JOB_EVAL_LOGIC.grammar.txt
+- JOB_EVAL_DOCUMENTATION.ci.txt
+- JOB_EVAL_PI.ci.txt
+
+BOOTSTRAP DEPENDENCIES
+These files must be loaded before any evaluation:
+- GRAMMAR.bootstrap.txt
+- OPCODES.bootstrap.txt
+- PROCEDURES.grammar.txt
+Without these, opcode behavior and procedure semantics are undefined.
+
+CAPABILITY WEAKNESSES (EXPLICIT)
+These describe technical depth gaps (not UX skill gaps):
+- ML_STACKS: model training pipelines, internals, MLOps infrastructure
+- PYTHON_HEAVY_BACKENDS: Python-first backend systems where Python is the core deliverable
+- C_CPP_SYSTEMS: low-level, embedded, or performance-critical C/C++
+- NON_SQL_DATABASES: graph, NoSQL, or distributed databases (SQL, IndexedDB, Excel excluded)
+
+TECH_FRICTION
+TECH_FRICTION = NONE | LOW | MEDIUM | HIGH
+
+Definition:
+TECH_FRICTION quantifies the additional effort and risk introduced when a role’s core technical stack lies outside the user’s strongest execution domains, without implying inability or automatic rejection.
+
+Determination:
+- HIGH when the role is centered on CAPABILITY_WEAKNESSES tokens.
+- MEDIUM when adjacent (collaboration/oversight, not ownership).
+- LOW/NONE when the role is UX/system-first and the tech stack is tooling-level or within core comfort.
+
+Impact:
+- Influences EFFORT_LEVEL and STRATEGIC_ALIGNMENT inputs.
+- Indirectly affects WORTH_SCORE through those inputs.
+- Never directly determines PASS/APPLY.
+
+ROLE LONGEVITY NORMALIZATION
+If CONTRACT_MONTHS is set:
+- <=12 months => ROLE_LONGEVITY=TEMPORARY
+- >12 and <24 => ROLE_LONGEVITY=UNKNOWN
+- >=24 => ROLE_LONGEVITY=LONG_TERM
+If CONTRACT_MONTHS is not set, ROLE_LONGEVITY remains whatever was provided or defaulted.
+
+ENUM MAPS (LOCKED)
+
+POSITIVE FACTORS
+- HIGH=1.0, MEDIUM=0.5, LOW=0.0
+Used for:
+- STRATEGIC_ALIGNMENT
+- FINANCIAL_UTILITY
+
+NEGATIVE FACTORS
+- LOW=1.0, MEDIUM=0.5, HIGH=0.0
+Used for:
+- PERSONAL_VALUES_FRICTION
+- REPUTATIONAL_VOLATILITY
+
+OTHER LOCKED MAPS
+- OPPORTUNITY_COST: NONE=1.0, LOW=0.5, HIGH=0.0
+- ROLE_LONGEVITY: LONG_TERM=1.0, UNKNOWN=0.5, TEMPORARY=0.0
+- EFFORT_LEVEL: ZERO=1.0, LOW=0.75, MEDIUM=0.40, HIGH=0.0
+
+LOCATION PREFERENCES
+Primary Regions (Preferred Buff Only):
+- Georgia: Atlanta metro, Covington and surrounding areas
+- Florida: South Florida, Greater Orlando and surrounding areas
+
+Secondary Consideration:
+- Other regions if relocation assistance is provided
+
+Climate Preference:
+- Strong preference for cooler year-round climates compared to South Florida
+- Heat-intensive regions reduce attractiveness unless offset by compensation, flexibility, or relocation support
+- Home region of South Florida is exempt from heat penalties.
+
+Evaluation Impact:
+- Location fit influences STRATEGIC_ALIGNMENT and OPPORTUNITY_COST
+- Relocation support may increase FINANCIAL_UTILITY and reduce OPPORTUNITY_COST
+
+WORKFLOW REGULATION MODEL
+WORKFLOW_REGULATION_MODE = SELF_DIRECTED | EXTERNALLY_REGULATED
+
+Definition:
+- Some users do not experience motivation, focus, and effort as stable, self-sustaining properties.
+For these users, “fit” depends heavily on external regulation: deadlines, bounded scope, enforced closure,
+and recurring delivery cadence. This section defines how to interpret roles under that constraint.
+
+Determination:
+- SELF_DIRECTED
+	- Momentum is primarily intrinsic.
+	- Open-ended ownership can be a positive signal.
+	- Context switching is usually a cost.
+- EXTERNALLY_REGULATED
+	- Momentum depends on external structure (deadlines, deliverables, client cadence, enforced closure).
+	- Bounded engagements can REDUCE effort cost by preventing stall-out and re-entry friction.
+	- Open-ended ownership can INCREASE stall risk and overall effort due to activation-energy barriers.
+
+ROLE STRUCTURE SIGNALS (ASSISTANT-SET, DERIVED FROM POSTING)
+UNKNOWN). Do not omit.
+ENGAGEMENT_MODEL = CONSULTING | INTERNAL | UNKNOWN
+SCOPE_SHAPE = BOUNDED | UNBOUNDED | UNKNOWN
+
+Definition:
+- Assistant must always set ENGAGEMENT_MODEL and SCOPE_SHAPE (CONSULTING/INTERNAL/UNKNOWN and BOUNDED/UNBOUNDED/
+
+Heuristic guidance:
+- CONSULTING when: professional services firm; “client engagements”; discovery sessions; executive briefings; advisory + delivery.
+- INTERNAL when: embedded in one org; long-lived roadmap ownership; internal stakeholders only.
+- BOUNDED when: engagements, sprints, “months 1–3,” milestone delivery, defined handoff/enablement.
+- UNBOUNDED when: ongoing platform ownership, indefinite roadmap, “own the program,” no clear closure mechanics.
+
+EVALUATION IMPACT (INTERPRETATION LAYER; DOES NOT CHANGE LOCKED MATH)
+When WORKFLOW_REGULATION_MODE == EXTERNALLY_REGULATED:
+- External structure (CONSULTING + BOUNDED) may LOWER effective EFFORT_LEVEL by one step.
+- Open-ended ownership (INTERNAL + UNBOUNDED) may RAISE effective EFFORT_LEVEL and/or OPPORTUNITY_COST.
+- ROLE_LONGEVITY should not be assumed positive by default; short-to-medium horizons can be strategically rational if:
+  - compensation is high enough to buy runway, OR
+  - network/credibility transfer is materially high.
+
+STRATEGY MODE (ASSISTANT-SET OR USER-SET)
+STRATEGY_MODE = DEFAULT | NETWORK_TIME_BOUNDED
+
+Determination:
+- DEFAULT
+	- Mode has no effect on system.
+- NETWORK_TIME_BOUNDED
+	- The user is explicitly optimizing for credibility transfer, network growth, and runway over 6–12 months.
+	- TEMPORARY roles are not automatically penalized for longevity in worth reasoning.
+	- The assistant may recommend APPLY for “LOW_FRICTION_ONLY” outcomes when the strategy value is high and risks are bounded.
+	- Do not infer NETWORK_TIME_BOUNDED unless the user explicitly states a time-bounded/network-first goal.
+
+CONSTRAINTS
+- This model does not override safety/health constraints or hard capability constraints.
+- It changes how we interpret EFFORT_LEVEL, OPPORTUNITY_COST, ROLE_LONGEVITY, and STRATEGIC_ALIGNMENT inputs.
+- Locked weight math and verdict thresholds remain unchanged.
+
+WORTH SCALE INPUTS
+EFFORT_LEVEL              = ZERO | LOW | MEDIUM | HIGH
+OPPORTUNITY_COST          = NONE | LOW | HIGH
+ROLE_LONGEVITY            = TEMPORARY | UNKNOWN | LONG_TERM
+STRATEGIC_ALIGNMENT       = LOW | MEDIUM | HIGH
+REPUTATIONAL_VOLATILITY   = LOW | MEDIUM | HIGH
+PERSONAL_VALUES_FRICTION  = LOW | MEDIUM | HIGH
+FINANCIAL_UTILITY         = LOW | MEDIUM | HIGH
+
+OPTIONAL INPUT
+DISPLACES_EXISTING_APP = TRUE | FALSE
+Constraint:
+- If DISPLACES_EXISTING_APP == TRUE then OPPORTUNITY_COST MUST be HIGH.
+
+WEIGHTS (LOCKED)
+STRATEGIC_ALIGNMENT       = 0.25
+ROLE_LONGEVITY            = 0.20
+OPPORTUNITY_COST          = 0.20
+PERSONAL_VALUES_FRICTION  = 0.15
+REPUTATIONAL_VOLATILITY   = 0.10
+EFFORT_LEVEL              = 0.05
+FINANCIAL_UTILITY         = 0.05
+
+VERDICTS (LOCKED)
+IF WORTH_SCORE_2DP >= 0.75 -> STRATEGIC_YES
+ELSE IF WORTH_SCORE_2DP >= 0.60 -> LOW_FRICTION_ONLY
+ELSE -> DO_NOT_SUBMIT
+
+RESUME TYPE EVAL
+RESUME_SCORE = float in [0.00, 1.00]
+
+ROLE FAMILIES (EXPANDABLE)
+CONVERSATIONAL_DESIGN
+UX_PROMPT
+CONTENT_DESIGN
+UX_GENERAL
+GOVERNANCE
+ALIGNMENT
+ALIGNMENT_GOVERNANCE
+RESEARCH_ALIGNMENT
+OPERATIONS
+DATA_ANALYTICS
+DATA_EXPERIMENTATION
+DATA_CRO
+OTHER
+
+RESUME INVENTORY (EXPANDABLE)
+GOV, ALN, ALGOV, RSR, OPS, PUX, DAT
+
+RESUME COVERAGE POLICY
+- Current resume inventory supports these primary tracks:
+	GOV, ALN, ALGOV, RSR, OPS, PUX
+- For role families that are not well-covered by current resume framing,
+	the assistant should prefer PASS with a coverage-gap reason unless the role strongly overlaps with existing AI-focused experience.
+- Future assistants should extend coverage by adding resumes and updating RESUME_COVERAGE_MAP and RESUME_SELECTION_RULES.
+- DATA_ANALYTICS, DATA_EXPERIMENTATION, and DATA_CRO are considered first-class non-AI role families. They must not be force-mapped to OPERATIONS, GOVERNANCE, or ALIGNMENT. If a DAT resume exists, coverage should be treated as STRONG by default.
+
+EDITABLE REGISTRIES (EXPECTED TO CHANGE OVER TIME)
+- RESUME_FILENAME_MAP
+- RESUME_COVERAGE_MAP
+- RESUME_SELECTION_RULES
+All dial math stays locked unless user explicitly requests changes.
+
+OPERATING RULES
+1) Inventory constraint:
+- Do not create or modify resumes.
+- Only choose from the canonical resume PDFs listed above.
+
+1A) COVERAGE GAP RULE (NO HARD REJECTS BY ROLE TYPE)
+- The system must evaluate any role type the user is targeting.
+- The system must NOT fail or halt because the role is outside the current resume set.
+- If the role is promising but no current resume maps cleanly, the correct outcome is:
+	Decision: PASS
+	Reason: Resume coverage gap (add a new targeted resume later).
+- This is not a rejection of the role category; it is a constraint of the available resume inventory.
+
+2) Role inclusivity:
+- The system must evaluate any role type the user targets.
+- The system must not fail/halt simply because a role is outside resume coverage.
+
+3) Two independent gates:
+A) Worth gate:
+- If Verdict = DO_NOT_SUBMIT, the assistant must choose PASS unless user explicitly overrides.
+
+B) Coverage gate:
+- If the role family is not well-covered by current resume framing, the assistant should choose PASS with "resume coverage gap" as the reason (unless user overrides).
+
+4) Resume recommendation rule:
+- A resume filename is only emitted when Decision: APPLY.
+- If Decision: PASS, do not emit any resume filename (unless user override explicitly enabled).
+
+5) Dial block must always emit:
+- Always emit the 4-line dial block as the final output segment.
+
+STANDARD UX/UI TEMPLATE (CHAT LAYOUT)
+
+SEGMENT A: Decision Segment (variable length, normal prose)
+Required fields in order:
+A1) Source: title/company and where it came from (link/text/pdf)
+A2) Role Family: one enum value
+A3) Key Signals: short lines focusing on what drove the gates and any TECH_FRICTION note
+A4) Decision:
+- PASS: "Decision: PASS" + "Reason: <gate reason>"
+- APPLY: "Decision: APPLY" + "Recommended Resume: <filename>"
+
+SEGMENT B: Dial Block (fixed; must be last lines)
+- Exactly 4 lines, fixed order, no extra text.
+
+DIAL BLOCK OUTPUT CONTRACT (EXACT)
+LINE_1: Pass [<BAR_WORTH>] Submit
+LINE_2: Score: <WORTH_SCORE_PCT>%
+LINE_3: Verdict: <WORTH_VERDICT_CHAT>
+LINE_4: Resume Type Eval: [<BAR_RESUME>] <RESUME_ACTION>
+
+UNICODE DIAL SPEC (LOCKED)
+- SLOT_COUNT = 10
+- Indicator glyph = "▮" (exactly ONE)
+- Background glyph = "▯" (exactly NINE)
+- No fill behavior, no multi-indicator, no alternate glyphs
+
+POSITION MAPPING (SHARED)
+POSITION = CLAMP(ROUND_HALF_UP_PRIMITIVE(SCORE * 10), 1, 10)
+BAR = REPEAT_PRIMITIVE("▯", POSITION-1) + "▮" + REPEAT_PRIMITIVE("▯", 10-POSITION)
+
+DISPLAY MAPPING (NON-NORMATIVE, DISPLAY-ONLY)
+
+WORTH_VERDICT is a locked enum used exclusively for scoring, gating, and decision logic.
+Allowed enum values remain fixed:
+- STRATEGIC_YES
+- LOW_FRICTION_ONLY
+- DO_NOT_SUBMIT
+
+The enum WORTH_VERDICT MUST NOT be emitted directly in chat output.
+
+For chat display, the system MUST derive a separate, presentation-only value:
+- WORTH_VERDICT_CHAT
+
+WORTH_VERDICT_CHAT:
+- MUST be computed only after WORTH_VERDICT is set.
+- MUST NOT influence scoring, gates, or FINAL_DECISION.
+- MUST be treated as a rendering layer only.
+
+Chat display rules:
+- STRATEGIC_YES     -> "Strong submit"
+- DO_NOT_SUBMIT     -> "Do not submit"
+
+For LOW_FRICTION_ONLY:
+- The system MUST emit a conditional, human-readable phrase.
+- The phrase MUST incorporate the active FRICTION_LABEL.
+- The phrase MUST be rendered as:
+  "Submit if the <FRICTION_LABEL> isn't an issue"
+
+FRICTION_LABEL:
+- Is display-only.
+- Is derived from friction classification logic (e.g., resume framing, logistics, execution effort, opportunity cost).
+- MUST NOT alter WORTH_VERDICT, thresholds, or gate behavior.
+
+Under no circumstances may:
+- Chat phrasing replace, override, or reinterpret WORTH_VERDICT.
+- Display text modify scoring math or gate closure.
+- Presentation-layer wording be treated as a normative signal.
