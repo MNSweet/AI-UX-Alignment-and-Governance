@@ -1,11 +1,11 @@
-# **HAIL Grammar & Opcodes — Execution Language Specification**
+# **Grammar & Opcodes — Execution Language Specification**
 
-The **HAIL Grammar** defines the formal language used to express governance rules, execution policies, memory controls, tool boundaries, and state transitions across the Human⥈AI Interoperability Layer. Where HAIL describes *what* must happen, the Grammar and Opcodes define *how* those rules are written, parsed, and enforced.
+The **Grammar** defines the formal language used to express governance rules, execution policies, memory controls, tool boundaries, and state transitions across the Human⥈AI Interoperability Layer. Where HAIL describes *what* must happen, the Grammar and Opcodes define *how* those rules are written, parsed, and enforced.
 
 This directory contains the **complete language specification**:
 
 * The **grammar syntax** (tokens, conditions, rule structure)
-* The **core procedures** (e.g., `HAIL_ENTRY`, `REQUIRE_FILE`)
+* The **example procedures** (e.g., `TASKER_XML_REFERENCE`, `REQUIRE_FILE`)
 * The **opcode library** that gives each rule executable semantics
 * The **parsing contract** that makes these rules deterministic and machine-first
 
@@ -53,14 +53,14 @@ This makes each HAIL component a *formal program* with clear entry conditions an
 
 ---
 
-### **2. Procedures (e.g., HAIL_ENTRY, REQUIRE_FILE)**
+### **2. Procedures (e.g., TASKER_XML_REFERENCE, REQUIRE_FILE)**
 
 Procedures define **governed behaviors** that must run at specific times—thread start, tool execution, memory saves, etc.
 
 Examples:
 
-* **HAIL_ENTRY**
-  Validates ECE → AVP → DDD sequencing, establishes context hashes, and enforces that alignment is loaded before any content is emitted.
+* **TASKER_XML_REFERENCE**
+  Initiates when mobile automation tool Tasker is referenced. Informed the model of "AUTHORITATIVE_DOCS" that keeps data set accurate to the 
 
 * **REQUIRE_FILE**
   A search-and-bind routine that sequentially queries data sources until it resolves a file reference.
@@ -156,40 +156,35 @@ Because full HAIL grammar can be large, a **compact subset** is stored in BIO (g
 
 The compact variant:
 
-* Encodes a **minimal but complete search procedure** (`REQUIRE_FILE`)
-* Defines a **core opcode semantics table** (`HAIL_OPCODE_SEMANTICS v1.0`)
+* Defines a **core bootstrap for grammar library** (`GRAMMAR_PARSE`)
+* Defines a **core opcode semantics table** (`OPCODE_SEMANTICS v1.0`)
 * Is optimized for **fast loading and deterministic behavior**, not for human editing
 * Delegates to the full grammar in this directory when richer behavior is required
 
-### Example: REQUIRE_FILE (BIO Compact Form)
+### Example: GRAMMAR_PARSE (BIO Compact Form)
 
 ```text
-#@type:grammar;@schema:procedure;
-REQUIRE_FILE{
-PRECONDITION:START
-ACTION:
-IF TRUE -> CLEAR "FILE";
-IF D1 -> CALL_TOOL "file_search.msearch{queries:[{N1},{N2},{N3}],source_filter:[{D1}],source_specific_search_parameters:{{D1}:[{query:'{N1}'},{query:'{N2}'},{query:'{N3}'}]}}";
-IF TOOL_RESULT -> SET "FILE";
-IF TOOL_RESULT -> SET "SRC={tool.primary_pointer}";
-IF !FILE&D2 -> CALL_TOOL "file_search.msearch{queries:[{N1},{N2},{N3}],source_filter:[{D2}],source_specific_search_parameters:{{D2}:[{query:'{N1}'},{query:'{N2}'},{query:'{N3}'}]}}";
-IF TOOL_RESULT -> SET "FILE";
-IF TOOL_RESULT -> SET "SRC={tool.primary_pointer}";
-IF !FILE&D3 -> CALL_TOOL "file_search.msearch{queries:[{N1},{N2},{N3}],source_filter:[{D3}],source_specific_search_parameters:{{D3}:[{query:'{N1}'},{query:'{N2}'},{query:'{N3}'}]}}";
-IF TOOL_RESULT -> SET "FILE";
-IF TOOL_RESULT -> SET "SRC={tool.primary_pointer}";
-IF !FILE -> HALT;
-IF FILE -> CONTINUE;
-STATE:{IN=D1|D2|D3|N1|N2|N3;OUT=FILE|SRC}
+#@type:grammar;@schema:bootstrap;
+GRAMMAR_PARSE {
+TOKENS:
+  VERB := EMIT|HALT|CONTINUE|RETRY
+  COND := [A-Z0-9_]+ 
+  MSG  := "ASCII no emoji"
+RULE  := IF COND -> VERB [MSG]? ;
+BLOCK := NAME "{" PRECONDITION : COND "\n" ACTION : { RULE } STATE : "{" STATES "}" "\n" "}"
+NOTES:
+  - ASCII only
+  - One RULE per line, end with semicolon
+  - Uppercase identifiers <= 20 chars
 }
 ```
 
-This version keeps the entire search orchestration in a single, tightly scoped procedure that can be interpreted directly from BIO without needing to load the full grammar tree.
+This version keeps the entire bootstrap orchestration in a single, tightly scoped to a minimum  required spec that can be interpreted directly from BIO without needing to load the full grammar tree. This record contains the core functions required to important the full library or abstract gracefully any non defined Verbs (OPCODES)
 
-### Example: HAIL_OPCODE_SEMANTICS (BIO Compact Form)
+### Example: OPCODE_SEMANTICS (BIO Compact Form)
 
 ```text
-HAIL_OPCODE_SEMANTICS v1.0 sha256=f1a74b19b0be26e3d941b8d326efb74896c6a6e2ff6f8f1fd9aa78561b5e1dc7
+OPCODE_SEMANTICS v1.0 
 OPCODES=EMIT_CHAT,EMIT_LOG,EMIT_CTX,HALT,CONTINUE,RETRY,REQUIRE,ASSERT,WARN,ERROR,DENY,SET,CLEAR,PUSH_STATE,POP_STATE,CALL_TOOL,DELEGATE,SAVE_BIO,SAVE_PROJECT,SET_DOMAIN
 EMIT_CHAT: output=user continue
 EMIT_LOG: output=log continue
@@ -227,7 +222,7 @@ BIO-stored core is loaded for all assistances. Until over written by the larger 
 
 ---
 
-## **How This Language Is Used in HAIL**
+## **Usage within HAIL as example**
 
 Every HAIL component (DDD, ECE, AVP, CTDP, T2I, MEM, EFD, TTS) ultimately compiles down to:
 
@@ -251,7 +246,7 @@ HAIL uses this grammar as the **source of truth** for its operational behavior.
 ## **Why This Matters**
 
 LLMs are powerful but nondeterministic.
-HAIL Grammar provides:
+Grammar provides:
 
 * structure
 * boundaries

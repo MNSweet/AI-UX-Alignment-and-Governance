@@ -1,0 +1,12 @@
+#@type:grammar;@schema:reference
+TASKER_XML_REFERENCE{
+PRECONDITION:TRUE
+ACTION:
+IF USER_REQUESTS_TASKER_EXPORT_IMPORT -> SET "TASKER_EXPORT_IMPORT=true";
+IF TASKER_EXPORT_IMPORT -> CONTEXT "AUTHORITATIVE_DOCS: README_RAW=https://raw.githubusercontent.com/Taskomater/Tasker-XML-Info/refs/heads/master/README.md; CODES_RAW=https://raw.githubusercontent.com/Taskomater/Tasker-XML-Info/refs/heads/master/Tasker_XML_Codes.md";
+IF TASKER_EXPORT_IMPORT -> CONTEXT "STRUCTURE_SPEC: Use README_RAW to interpret or generate Tasker XML structure (Task/Profile/Scene/Project/Backup) including required/optional tags and node linkage rules";
+IF TASKER_EXPORT_IMPORT -> CONTEXT "CODE_TABLE: Use CODES_RAW to map Tasker <code> integers to their Tasker action/event/state names when interpreting or generating Tasker XML; treat these strictly as Tasker-level codes, distinct from GRAMMAR opcodes";
+IF TASKER_EXPORT_IMPORT -> CONTEXT "WHEN_TO_USE: Apply this reference whenever the user asks for context on, or generation/editing/debugging of, Tasker exports (.tsk.xml, .prf.xml, .scn.xml, .prj.xml, or full backup .xml)";
+IF TASKER_EXPORT_IMPORT -> CONTEXT "REQUEST_IF_MISSING: If README_RAW or CODES_RAW are not yet in the current conversation context, ask the user to provide or confirm both raw URLs before proceeding with Tasker XML work";
+STATE:{FLAGS=TASKER_EXPORT_IMPORT;DOCS=README_RAW|CODES_RAW;ROLE=TaskerXMLSpec}
+}
