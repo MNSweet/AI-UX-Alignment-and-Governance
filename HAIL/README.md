@@ -1,5 +1,7 @@
 # Human⥈AI Interoperability Layer (HAIL) – Case Studies
 
+> **Legacy / superseded:** This directory is preserved as governance lineage and reference material. DA4LLM is the current active architecture, and selected HAIL-derived concepts are being reviewed for adaptation into [`DA4LLM/GOVERNANCE`](../DA4LLM/GOVERNANCE/README.md). Nothing in this directory is promoted automatically.
+
 This repository documents a set of real-world case studies derived from conversations between a human operator and large language models, framed under the **Human⥈AI Interoperability Layer (HAIL)** governance system.
 
 The goal is to show how governance, prompt design, and interaction patterns can:

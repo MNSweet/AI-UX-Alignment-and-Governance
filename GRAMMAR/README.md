@@ -1,5 +1,7 @@
 # **Grammar & Opcodes — Execution Language Specification**
 
+> **Legacy / superseded:** This directory is preserved as source and reference material. DA4LLM is the current active architecture, and selected model-agnostic concepts are being reviewed for adaptation into [`DA4LLM/CORE`](../DA4LLM/CORE/README.md). Nothing in this directory is promoted automatically.
+
 The **Grammar** defines the formal language used to express governance rules, execution policies, memory controls, tool boundaries, and state transitions across the Human⥈AI Interoperability Layer. Where HAIL describes *what* must happen, the Grammar and Opcodes define *how* those rules are written, parsed, and enforced.
 
 This directory contains the **complete language specification**:
