@@ -1,6 +1,6 @@
 # AI UX, Alignment, and Governance
 
-This repository preserves the development lineage of several AI interaction, alignment, and governance frameworks. **DA4LLM (Deterministic Architecture for Large Language Models) is the current active architecture.**
+This repository preserves the development lineage of several AI interaction, alignment, and governance frameworks. DA4LLM stands for **D**eterministic **A**rchitecture for **L**arge **L**anguage **M**odels and is the current active architecture.
 
 ## Current architecture
 
@@ -24,7 +24,7 @@ Legacy content remains in place for provenance, migration review, and regression
 | [`HAIL/`](HAIL/README.md) | Legacy; superseded | Governance lineage for `DA4LLM/GOVERNANCE`. |
 | [`AgentPad/`](AgentPad/README.md) | Deprecated / EOL | Preserved as reference; depended on the deprecated Canmore surface. |
 | [`CCFT/`](CCFT/README.md) | Deprecated / EOL | Preserved as reference; its GPT/project model is slated for deletion and does not map cleanly to Skills. |
-| [`JobEval/`](JobEval/README.md) | Legacy domain package | Regression and stress-test corpus for DA4LLM; not CORE logic. |
+| [`JobEval/`](JobEval/README.md) | DA4LLM domain application | Runs on DA4LLM; it is not a predecessor to DA4LLM or part of CORE. |
 | [`Paper2Podcast/`](Paper2Podcast/README.md) | EOL by developer decision | Preserved as reference unless explicitly revived. |
 
 No legacy directory has been removed, renamed, or rewritten as part of the DA4LLM bootstrap.

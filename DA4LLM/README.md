@@ -1,6 +1,6 @@
 # DA4LLM
 
-DA4LLM (Deterministic Architecture for Large Language Models) is the current active architecture in this repository. It is being constructed alongside the preserved legacy systems so that provenance, migration decisions, and regression evidence remain reviewable.
+DA4LLM stands for **D**eterministic **A**rchitecture for **L**arge **L**anguage **M**odels. It is the current active architecture in this repository and is being constructed alongside preserved legacy systems so that provenance and migration decisions remain reviewable.
 
 ## Architecture
 
