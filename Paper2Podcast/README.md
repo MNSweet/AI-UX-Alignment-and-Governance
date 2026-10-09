@@ -1,5 +1,7 @@
 # Paper-to-Podcast Protocol (v1.7)
 
+> **EOL by developer decision:** This project is preserved as legacy reference material and is not part of the active DA4LLM architecture. It may be reconsidered only if explicitly revived.
+
 A formal spec for converting technical papers and posts into long, TTS-friendly podcast monologues that preserve substance, inject clear analysis, and avoid hype.
 
 > TL;DR: Feed it PDFs, docs, or repos; get one continuous spoken monologue that keeps 85–100% of the signal, expands figures and tables into words, and ends with a compact “Sources:” line.
@@ -281,4 +283,3 @@ Built-in skepticism:
 
 * **Current:** v1.7
 * **Changes from v1.6:** Added canonical `segment_toggles` and defined “continue” behavior in the Output contract.
-

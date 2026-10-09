@@ -1,31 +1,34 @@
-# Multimodal AI - UX, Alignment & Governance
+# AI UX, Alignment, and Governance
 
-# Featured
+This repository preserves the development lineage of several AI interaction, alignment, and governance frameworks. **DA4LLM (Deterministic Architecture for Large Language Models) is the current active architecture.**
 
-## HAIL: Human⥈AI Interoperability Layer Framework
-[Go to documentation ❲➤❳](HAIL/README.md)
+## Current architecture
 
-**The Human⥈AI Interoperability Layer (HAIL)** is a governance and alignment framework that makes AI interactions predictable, auditable, and safer for better **User Experiences**. It does this by enforcing structured communication, explicit decision-making, and deterministic behavior across the entire Human–AI workflow. HAIL combines a custom two-stage **Grammar** system with a suplimentry **JSON-based** governance data to control how an AI interprets directives, manages context, handles tools, applies safety rules, and reveals failure modes.
+### [DA4LLM](DA4LLM/README.md)
 
-Built from real conversational case studies, HAIL focuses on interaction reliability, context integrity, dissent signaling, ethical execution, and cross-tool consistency. The framework acts as both a UX discipline and an alignment layer—ensuring that human intent is honored, ambiguity is surfaced, and every step is traceable.
+DA4LLM separates deterministic behavior into three packages:
 
-## GRAMMAR & OPCODES
-[Go to documentation ❲➤❳](GRAMMAR/README.md)
+- **CORE**: provider-neutral syntax, control, operations, primitives, procedures, semantics, state, trace, diagnostics, and abstract capability contracts.
+- **BRIDGE**: provider-, tool-, connector-, and runtime-specific mappings and missing-capability behavior.
+- **GOVERNANCE**: HAIL-derived governance, dissent, memory control, source authority, user-control rules, and parity-share protocols.
 
-**GRAMMAR & OPCODES** defines the small governance language that HAIL runs on. The grammar specification describes how procedures are written in a strict, machine-first syntax (uppercase condition names, constrained messages, one rule per line) so that policies stay deterministic, lintable, and easy for tools to parse.
+The repository currently contains the DA4LLM topology and project documentation only. Candidate logic remains subject to the selection ledger and has not been migrated by this bootstrap change.
 
-The opcode library then gives those rules concrete behavior: primitives like **EMIT_CHAT**, **CALL_TOOL**, **HALT**, **REQUIRE**, **WARN**, **DENY**, **SAVE_BIO**, and **SET_DOMAIN** each map to a specific effect, failure mode, and target domain (user output, logging, memory, tools, etc.). Together, the grammar and opcode definitions form the execution substrate for HAIL and related frameworks, making AI governance rules explicit, auditable, and portable across agents.
+## Legacy and reference material
 
-## CCFT: Chat Context Focus Transfer
-[Go to documentation ❲➤❳](CCFT/README.md)
+Legacy content remains in place for provenance, migration review, and regression testing. It is not the current architecture unless explicitly revived or promoted through the DA4LLM process.
 
+| Directory | Status | DA4LLM relationship |
+| --- | --- | --- |
+| [`GRAMMAR/`](GRAMMAR/README.md) | Legacy; superseded | Source material for `DA4LLM/CORE`, subject to selection and adaptation. |
+| [`HAIL/`](HAIL/README.md) | Legacy; superseded | Governance lineage for `DA4LLM/GOVERNANCE`. |
+| [`AgentPad/`](AgentPad/README.md) | Deprecated / EOL | Preserved as reference; depended on the deprecated Canmore surface. |
+| [`CCFT/`](CCFT/README.md) | Deprecated / EOL | Preserved as reference; its GPT/project model is slated for deletion and does not map cleanly to Skills. |
+| [`JobEval/`](JobEval/README.md) | Legacy domain package | Regression and stress-test corpus for DA4LLM; not CORE logic. |
+| [`Paper2Podcast/`](Paper2Podcast/README.md) | EOL by developer decision | Preserved as reference unless explicitly revived. |
 
+No legacy directory has been removed, renamed, or rewritten as part of the DA4LLM bootstrap.
 
-## AgentPad
-[Go to documentation ❲➤❳](AgentPad/README.md)
+## Migration status
 
-
-
-## Paper2Podcast
-[Go to documentation ❲➤❳](Paper2Podcast/README.md)
-
+See [`DA4LLM/STATUS.md`](DA4LLM/STATUS.md) for current scope and [`DA4LLM/MIGRATION.md`](DA4LLM/MIGRATION.md) for package boundaries and legacy mappings.
