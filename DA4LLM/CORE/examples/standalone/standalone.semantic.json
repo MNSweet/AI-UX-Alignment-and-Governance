@@ -1,0 +1,28 @@
+{
+  "schema_version": "0.1.0-poc",
+  "module": "standalone_demo",
+  "module_version": "0.1.0-poc",
+  "variables": {
+    "message": {
+      "type": "string",
+      "purpose": "Demonstrate that the semantic contract resolves the literal 4 as a string.",
+      "intrinsic_restrictions": [
+        "The value is demonstration data and carries no provider-specific meaning."
+      ]
+    }
+  },
+  "operations": {
+    "SET": {
+      "meaning": "Bind a semantically resolved literal to a named variable."
+    },
+    "CALL_CAPABILITY": {
+      "meaning": "Request a provider-neutral capability through the optional BRIDGE boundary.",
+      "intrinsic_restrictions": [
+        "CORE does not select or name a provider tool."
+      ]
+    },
+    "RETURN": {
+      "meaning": "Expose a named value as the procedure result."
+    }
+  }
+}

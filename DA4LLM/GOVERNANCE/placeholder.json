@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1.0-poc",
+  "status": "placeholder",
+  "implements": [],
+  "declared_lifecycle_hooks": [
+    "PRE_EXECUTION",
+    "PRE_CAPABILITY",
+    "POST_CAPABILITY",
+    "PRE_OUTPUT",
+    "POST_OUTPUT"
+  ],
+  "note": "No HAIL-derived or other governance policy is promoted in this POC."
+}

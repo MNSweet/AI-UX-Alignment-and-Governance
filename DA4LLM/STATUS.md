@@ -2,29 +2,34 @@
 
 ## Current phase
 
-**Bootstrap structure / pre-release-candidate documentation**
+**Executable CORE proof of concept / pre-release-candidate review**
 
-This repository now identifies DA4LLM as the active architecture and provides package boundaries for CORE, BRIDGE, GOVERNANCE, TESTS, and supporting documentation.
+DA4LLM remains the active architecture. CORE now has a minimal executable validator and interpreter; BRIDGE and GOVERNANCE remain explicit placeholders.
 
 ## Included in this phase
 
-- DA4LLM directory topology and entrypoint documentation.
-- CORE, BRIDGE, GOVERNANCE, and TESTS responsibility boundaries.
-- Migration mapping for preserved legacy projects.
-- Deprecation and legacy notices that do not alter historical contents.
+- Minimal lexer, parser, semantic loader, validator, and procedure runtime.
+- `normal`, `debug`, and `strict` validation modes.
+- Canonical POC operations: `SET`, `CALL_CAPABILITY`, and `RETURN`.
+- Typed `CAPABILITY_UNAVAILABLE` handling controlled by the calling procedure.
+- Optional GOVERNANCE lifecycle hook declarations.
+- Executable conformance tests and a standalone example.
+- BRIDGE and GOVERNANCE placeholders that make no implementation claims.
 
 ## Not included in this phase
 
-- Full harness or parser migration.
+- Full harness or legacy parser migration.
 - Promotion of candidate CORE files into authoritative specifications.
 - Provider-specific bridge implementations.
+- HAIL, Parity Share, DDD, or other governance-policy implementation.
+- JobEval logic, data, weighting, resumes, or domain-specific behavior.
 - Rewriting, moving, renaming, or deleting legacy artifacts.
-- Resolution of open operation, syntax, capability, versioning, or output-contract decisions.
+- Stable syntax, schema, runtime, versioning, or output-contract decisions.
 
 ## Promotion gate
 
-An artifact is not promoted into a DA4LLM release candidate until the selection ledger records its source, destination package, decision, rationale, conflict or override note, and test requirement. Candidate notes remain review material until that gate is satisfied and approved.
+The POC code is a normalized candidate implementation. It does not promote the reviewed historical files wholesale. A future release candidate still requires recorded source, destination package, decision, rationale, conflict or override note, and test requirement.
 
 ## Next controlled phase
 
-Review the selected CORE candidates and resolve their open decisions before adding stable top-level CORE files. BRIDGE and GOVERNANCE implementation follows CORE stabilization.
+Review the POC language, semantic contract, and validator behavior. Stabilize CORE only after those decisions are accepted. Concrete BRIDGE mappings and reviewed GOVERNANCE modules follow separately.

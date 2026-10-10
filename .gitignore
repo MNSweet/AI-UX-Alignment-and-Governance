@@ -1,2 +1,4 @@
 .DS_Store
 /GRAMMAR/Archival
+__pycache__/
+*.py[cod]

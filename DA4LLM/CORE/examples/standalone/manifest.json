@@ -1,0 +1,7 @@
+{
+  "schema_version": "0.1.0-poc",
+  "module": "standalone_demo",
+  "module_version": "0.1.0-poc",
+  "logic": "standalone.logic.da4",
+  "semantics": "standalone.semantic.json"
+}

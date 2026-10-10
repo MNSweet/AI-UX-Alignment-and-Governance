@@ -1,0 +1,7 @@
+# A complete module that runs with neither BRIDGE nor GOVERNANCE present.
+MODULE standalone_demo VERSION "0.1.0-poc"
+PROCEDURE main
+SET message = 4
+CALL_CAPABILITY "text.echo" WITH message ON_UNAVAILABLE CONTINUE
+RETURN message
+END
