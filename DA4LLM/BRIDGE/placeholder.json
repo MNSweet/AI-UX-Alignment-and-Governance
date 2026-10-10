@@ -1,0 +1,7 @@
+{
+  "schema_version": "0.1.0-poc",
+  "status": "placeholder",
+  "implements": [],
+  "capability_mappings": [],
+  "note": "No provider, tool, connector, or runtime mapping is promoted in this POC."
+}

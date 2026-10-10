@@ -14,7 +14,9 @@ DA4LLM stands for **D**eterministic **A**rchitecture for **L**arge **L**anguage 
 
 ## Current scope
 
-This bootstrap establishes repository topology and truthful project documentation. It does not migrate the full harness, promote candidate specifications, or rewrite legacy content.
+The repository contains a deliberately small, executable CORE proof of concept. It validates the approved separation between logic and semantics, supports three validation modes, runs without BRIDGE or GOVERNANCE, and exposes provider-neutral capability and governance extension boundaries.
+
+This is not a production release or a complete migration of the legacy harness. The syntax, file formats, and `0.1.0-poc` version label remain provisional. BRIDGE and GOVERNANCE contain honest placeholders only; no provider mapping or governance policy is represented as implemented.
 
 The Google Drive DA4LLM workspace remains the staging and audit context for source selection. Promotion into DA4LLM requires a recorded source, destination package, decision, rationale, conflict or override note, and test requirement. Candidate and staging documents are not authoritative specifications merely because they are referenced here.
 
@@ -22,7 +24,7 @@ The Google Drive DA4LLM workspace remains the staging and audit context for sour
 
 Development proceeds in this order:
 
-1. Stabilize the small, provider-neutral `CORE`.
+1. Review and stabilize the small, provider-neutral `CORE` proof of concept.
 2. Add concrete provider and runtime mappings in `BRIDGE`.
 3. Attach the separate `GOVERNANCE` layer without changing CORE parsing or control semantics.
 
