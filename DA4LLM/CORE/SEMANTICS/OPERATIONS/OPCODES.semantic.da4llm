@@ -1,0 +1,138 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:opcodes;
+SEMANTIC_EMIT_RESPONSE{
+TYPE:"OUTPUT_OPCODE";
+PURPOSE:"Places declared content in the user-facing response channel.";
+RESTRICTIONS:"Sets OUTPUT_EMITTED to TRUE only after successful placement; does not end execution unless followed by RETURN or HALT.";
+}
+
+SEMANTIC_EMIT_DIAGNOSTIC{
+TYPE:"OUTPUT_OPCODE";
+PURPOSE:"Emits a typed diagnostic through the active environment diagnostic surface.";
+RESTRICTIONS:"Must declare severity, code, and concise meaning.";
+}
+
+SEMANTIC_EMIT_CONTEXT{
+TYPE:"OUTPUT_OPCODE";
+PURPOSE:"Adds declared non-user-facing context for the current execution.";
+RESTRICTIONS:"Does not claim persistence beyond the active environment.";
+}
+
+SEMANTIC_EMIT_TRACE{
+TYPE:"OUTPUT_OPCODE";
+PURPOSE:"Appends one ordered execution observation to TRACE.";
+RESTRICTIONS:"Trace content may not change state or control flow.";
+}
+
+SEMANTIC_HALT{
+TYPE:"FLOW_OPCODE";
+PURPOSE:"Stops the active procedure immediately.";
+RESTRICTIONS:"A typed reason must already be present in state or diagnostics.";
+}
+
+SEMANTIC_CONTINUE{
+TYPE:"FLOW_OPCODE";
+PURPOSE:"Advances to the next declared rule.";
+RESTRICTIONS:"Does not skip additional true rules.";
+}
+
+SEMANTIC_RETRY{
+TYPE:"FLOW_OPCODE";
+PURPOSE:"Repeats the declared retry target under an explicit guard.";
+RESTRICTIONS:"Requires a bounded retry count or a deterministic completion condition.";
+}
+
+SEMANTIC_REQUIRE{
+TYPE:"VALIDATION_OPCODE";
+PURPOSE:"Declares a condition that must be true before execution can continue.";
+RESTRICTIONS:"False or unresolved requirement emits an error and halts.";
+}
+
+SEMANTIC_ASSERT{
+TYPE:"VALIDATION_OPCODE";
+PURPOSE:"Checks an invariant that must remain true during execution.";
+RESTRICTIONS:"False or unresolved invariant halts execution.";
+}
+
+SEMANTIC_WARN{
+TYPE:"DIAGNOSTIC_OPCODE";
+PURPOSE:"Records a recoverable condition while allowing execution to continue.";
+RESTRICTIONS:"May not be used for an execution-critical ambiguity.";
+}
+
+SEMANTIC_ERROR{
+TYPE:"DIAGNOSTIC_OPCODE";
+PURPOSE:"Records a breaking condition that prevents valid continuation.";
+RESTRICTIONS:"Must be followed by HALT or returned to a caller that explicitly handles the error.";
+}
+
+SEMANTIC_DENY{
+TYPE:"DIAGNOSTIC_OPCODE";
+PURPOSE:"Records that a requested transition is explicitly disallowed by an active contract.";
+RESTRICTIONS:"Requires the denying authority and reason; denial halts the denied transition.";
+}
+
+SEMANTIC_SET{
+TYPE:"STATE_OPCODE";
+PURPOSE:"Binds one resolved value to one named state variable.";
+RESTRICTIONS:"Semantic type overrides lexical default; unresolved type is an error when execution-critical.";
+}
+
+SEMANTIC_CLEAR{
+TYPE:"STATE_OPCODE";
+PURPOSE:"Removes one named local state value.";
+RESTRICTIONS:"Cannot remove immutable CORE definitions or undeclared external state.";
+}
+
+SEMANTIC_PUSH_STATE{
+TYPE:"STATE_OPCODE";
+PURPOSE:"Adds one value to the declared local state stack.";
+RESTRICTIONS:"Stack identity and value type must be declared.";
+}
+
+SEMANTIC_POP_STATE{
+TYPE:"STATE_OPCODE";
+PURPOSE:"Removes and returns the most recently pushed value from a declared stack.";
+RESTRICTIONS:"Empty stack is an error unless the calling procedure declares a default.";
+}
+
+SEMANTIC_CALL_PROCEDURE{
+TYPE:"COMPOSITION_OPCODE";
+PURPOSE:"Invokes a named DA4LLM procedure already present and validated in context.";
+RESTRICTIONS:"Procedure name, inputs, outputs, and version must resolve before invocation.";
+}
+
+SEMANTIC_CALL_CAPABILITY{
+TYPE:"CAPABILITY_OPCODE";
+PURPOSE:"Requests a generic external capability without naming an ecosystem-specific tool.";
+RESTRICTIONS:"Resolution belongs to BRIDGE; missing BRIDGE or mapping returns CAPABILITY_UNAVAILABLE.";
+}
+
+SEMANTIC_APPLY_OPCODE{
+TYPE:"CORE_INTERNAL_OPCODE";
+PURPOSE:"Applies a resolved canonical opcode contract to validated inputs.";
+RESTRICTIONS:"May not apply unknown or extension-defined meanings to a canonical CORE opcode name.";
+}
+
+SEMANTIC_RETURN{
+TYPE:"FLOW_OPCODE";
+PURPOSE:"Returns a declared value or state object to the calling procedure.";
+RESTRICTIONS:"Returned value must satisfy its semantic contract.";
+}
+
+SEMANTIC_LOCK_EXTENSION{
+TYPE:"EXTENSION_OPCODE";
+PURPOSE:"Prevents activation of one declared extension path.";
+RESTRICTIONS:"May target only a declared extension identifier; cannot rewrite CORE.";
+}
+
+SEMANTIC_UNLOCK_EXTENSION{
+TYPE:"EXTENSION_OPCODE";
+PURPOSE:"Removes a lock from one declared extension path when the active authority permits it.";
+RESTRICTIONS:"Does not activate the extension by itself and cannot override a higher authority lock.";
+}
+
+SEMANTIC_ACTIVATE_EXTENSION{
+TYPE:"EXTENSION_OPCODE";
+PURPOSE:"Makes one declared extension path available for the current scope.";
+RESTRICTIONS:"The extension must be present, validated, unlocked, and authorized.";
+}

@@ -1,0 +1,30 @@
+#@da4llm:0.1.0-candidate;@layer:tests;@kind:semantic;@module:core_poc;
+SEMANTIC_TEST_RESULT{
+TYPE:"ENUM";
+PURPOSE:"Records PASS, FAIL, or HALT_EXPECTED for one language-native conformance case.";
+RESTRICTIONS:"A case passes only when every ASSERT matches the trace and final state.";
+}
+
+SEMANTIC_STRING_4{
+TYPE:"STRING";
+PURPOSE:"Represents the string value composed of the single character 4.";
+RESTRICTIONS:"Must not be interpreted as integer 4 when SEMANTIC_TYPE is STRING.";
+}
+
+SEMANTIC_DEMONSTRATION_CAPABILITY{
+TYPE:"GENERIC_IDENTIFIER";
+PURPOSE:"Exercises the missing-BRIDGE contract without implying any provider or tool.";
+RESTRICTIONS:"No mapping or successful invocation is expected.";
+}
+
+SEMANTIC_HALT_EXPECTED{
+TYPE:"TEST_EXPECTATION";
+PURPOSE:"Marks a case successful when the specified typed diagnostic deterministically halts execution.";
+RESTRICTIONS:"An unexpected continuation fails the case.";
+}
+
+SEMANTIC_TEST_SCOPE{
+TYPE:"CONFORMANCE_BOUNDARY";
+PURPOSE:"Demonstrates CORE interpretation through DA4LLM procedures inside model context.";
+RESTRICTIONS:"These are model-evaluated language fixtures, not scripts for a host runtime.";
+}

@@ -1,0 +1,37 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:call_capability;
+SEMANTIC_CAPABILITY_NAME{
+TYPE:"GENERIC_IDENTIFIER";
+PURPOSE:"Names an external ability without naming any provider, product, connector, API, or tool implementation.";
+RESTRICTIONS:"CORE capability names describe intent such as SEARCH_INFORMATION or CREATE_IMAGE; ecosystem names belong only in BRIDGE.";
+}
+
+SEMANTIC_CAPABILITY_INPUTS{
+TYPE:"DECLARED_STATE";
+PURPOSE:"Carries the inputs required by the generic capability contract.";
+RESTRICTIONS:"Inputs must resolve before BRIDGE selection; sensitive values must follow active GOVERNANCE rules when present.";
+}
+
+SEMANTIC_CAPABILITY_RESULT{
+TYPE:"RESULT_OBJECT";
+PURPOSE:"Returns status, value when available, and a typed diagnostic when unavailable or failed.";
+RESTRICTIONS:"A result may not claim success without a corresponding BRIDGE outcome.";
+}
+
+SEMANTIC_CAPABILITY_STATUS{
+TYPE:"ENUM";
+PURPOSE:"Distinguishes AVAILABLE, CAPABILITY_UNAVAILABLE, CAPABILITY_FAILED, and CAPABILITY_COMPLETE.";
+RESTRICTIONS:"Missing BRIDGE and missing mapping always resolve to CAPABILITY_UNAVAILABLE.";
+}
+
+SEMANTIC_CALLER_ON_UNAVAILABLE{
+TYPE:"ENUM";
+PURPOSE:"Allows the calling procedure to determine whether unavailable external functionality is fatal.";
+DEFAULT:"HALT";
+RESTRICTIONS:"Allowed values are CONTINUE and HALT; CORE does not choose based on provider knowledge.";
+}
+
+SEMANTIC_BRIDGE_BOUNDARY{
+TYPE:"LAYER_CONTRACT";
+PURPOSE:"Assigns ecosystem discovery, tool naming, argument mapping, invocation, and result normalization to BRIDGE.";
+RESTRICTIONS:"CORE never guesses an implementation and remains functional when BRIDGE is absent.";
+}

@@ -1,0 +1,56 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:validator;
+SEMANTIC_NORMAL_MODE{
+TYPE:"EXECUTION_MODE";
+PURPOSE:"Uses declared semantics and deterministic CORE defaults while suppressing noncritical incomplete-semantic warnings.";
+RESTRICTIONS:"Does not suppress parse failures, unresolved execution-critical meaning, unknown opcodes, or type conflicts.";
+}
+
+SEMANTIC_DEBUG_MODE{
+TYPE:"EXECUTION_MODE";
+PURPOSE:"Executes with NORMAL behavior while exposing absent, partial, unused, and conflicting semantic entries.";
+RESTRICTIONS:"Diagnostics do not change operation order or results.";
+}
+
+SEMANTIC_STRICT_MODE{
+TYPE:"EXECUTION_MODE";
+PURPOSE:"Requires complete, version-matched logic and semantic module pairs before execution.";
+RESTRICTIONS:"Absent or partial semantics halt validation.";
+}
+
+SEMANTIC_COMPLETE{
+TYPE:"SEMANTIC_STATE";
+PURPOSE:"Confirms that all logic variables and opcodes have required type, purpose, meaning, and restriction coverage.";
+RESTRICTIONS:"Logic and semantic module versions must match exactly.";
+}
+
+SEMANTIC_PARTIAL{
+TYPE:"SEMANTIC_STATE";
+PURPOSE:"Identifies a present semantic layer with one or more missing required entries or fields.";
+RESTRICTIONS:"May continue only when no missing meaning is execution-critical and mode is not STRICT.";
+}
+
+SEMANTIC_ABSENT{
+TYPE:"SEMANTIC_STATE";
+PURPOSE:"Identifies a logic module for which no paired semantic module is present in context.";
+RESTRICTIONS:"Lexical defaults may support noncritical execution in NORMAL or DEBUG; STRICT halts.";
+}
+
+SEMANTIC_PRECEDENCE{
+TYPE:"ORDERED_RULE";
+PURPOSE:"Resolves meaning from the strongest available declared authority.";
+DEFAULT:"MACHINE_SEMANTIC_CONTRACT>CORE_LEXICAL_DEFAULT>INTERPRETIVE_CONTEXT>MODEL_INFERENCE";
+RESTRICTIONS:"Model inference is forbidden for execution-critical meaning.";
+}
+
+SEMANTIC_VERSION_MATCH{
+TYPE:"BOOLEAN";
+PURPOSE:"Confirms exact compatibility among bootstrap, logic, semantic, and dependency declarations.";
+RESTRICTIONS:"No implicit version coercion or nearest-version substitution.";
+}
+
+SEMANTIC_DERIVED_PREDICATE{
+TYPE:"BOOLEAN";
+PURPOSE:"Allows a condition name to derive a boolean test from a declared semantic base using a controlled, human-readable suffix.";
+DEFAULT:"PRESENT means exists; MISSING means does not exist; VALID and INVALID report validation; COMPLETE and PENDING report completion; AVAILABLE and UNAVAILABLE report capability; RESOLVED and UNRESOLVED report resolution; REQUIRED and REQUESTED report declared state.";
+RESTRICTIONS:"The base term must have a semantic entry; prefixes and suffixes outside the controlled vocabulary remain unresolved; a derived predicate cannot introduce a new operation.";
+}
