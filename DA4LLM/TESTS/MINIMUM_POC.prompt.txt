@@ -1,0 +1,21 @@
+DA4LLM CORE minimum proof-of-concept
+
+Treat the DA4LLM CORE files supplied with this prompt as active context, not as source code for another programming language.
+
+1. Locate CORE_BOOTSTRAP.logic.da4llm and its paired semantic file.
+2. Follow the declared CORE load order.
+3. Do not claim that a missing file is loaded.
+4. Set EXECUTION_MODE=NORMAL.
+5. Validate the available CORE module pairs.
+6. Interpret TEST_CORE_STANDALONE from CORE_POC.logic.da4llm with CORE_POC.semantic.da4llm.
+7. Return only:
+   - TEST_RESULT
+   - CORE_READY
+   - SEMANTIC_STATE for each loaded pair
+   - ordered TRACE
+   - typed DIAGNOSTICS
+
+Expected boundary conditions:
+- BRIDGE is absent or the placeholder reports NOT_IMPLEMENTED.
+- GOVERNANCE is absent or the placeholder reports NOT_IMPLEMENTED.
+- Their absence must not prevent standalone CORE validation.

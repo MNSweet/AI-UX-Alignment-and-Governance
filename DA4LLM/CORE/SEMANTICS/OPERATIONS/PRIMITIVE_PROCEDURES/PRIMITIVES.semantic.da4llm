@@ -1,0 +1,66 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:primitives;
+SEMANTIC_PRIMITIVE_NAMESPACE{
+TYPE:"NAMING_CONTRACT";
+PURPOSE:"Reserves names ending in _PRIMITIVE for canonical CORE primitive procedures.";
+RESTRICTIONS:"Custom, BRIDGE, and GOVERNANCE modules may not redefine or shadow a primitive name.";
+}
+
+SEMANTIC_OVERLAP_EXISTS_PRIMITIVE{
+TYPE:"BOOLEAN_PROCEDURE";
+PURPOSE:"Returns TRUE only when both sets contain at least one equal member.";
+RESTRICTIONS:"Empty or missing input returns FALSE; equality uses the declared member semantic type.";
+}
+
+SEMANTIC_ROUND_HALF_UP_PRIMITIVE{
+TYPE:"NUMBER_PROCEDURE";
+PURPOSE:"Rounds VALUE to DP decimal places using half-up behavior.";
+RESTRICTIONS:"VALUE must be numeric and DP must be an integer.";
+}
+
+SEMANTIC_REPEAT_PRIMITIVE{
+TYPE:"STRING_PROCEDURE";
+PURPOSE:"Returns GLYPH repeated COUNT times.";
+RESTRICTIONS:"COUNT less than or equal to zero returns an empty string.";
+}
+
+SEMANTIC_TO_INTEGER_PRIMITIVE{
+TYPE:"INTEGER_PROCEDURE";
+PURPOSE:"Converts a semantically compatible value into an integer.";
+RESTRICTIONS:"Boolean and null are not numbers; fractional values cannot convert without an explicit rounding procedure.";
+}
+
+SEMANTIC_TO_FLOAT_PRIMITIVE{
+TYPE:"FLOAT_PROCEDURE";
+PURPOSE:"Converts a semantically compatible numeric value into a float.";
+RESTRICTIONS:"Boolean and null are not numbers; invalid numeric text is an error.";
+}
+
+SEMANTIC_STRING_LENGTH_PRIMITIVE{
+TYPE:"INTEGER_PROCEDURE";
+PURPOSE:"Returns the number of characters in S.";
+RESTRICTIONS:"Null or missing S returns zero; character means Unicode code point in this candidate.";
+}
+
+SEMANTIC_CONCAT_PRIMITIVE{
+TYPE:"STRING_PROCEDURE";
+PURPOSE:"Returns A followed immediately by B.";
+RESTRICTIONS:"Missing inputs are treated as empty strings; non-string types require prior conversion.";
+}
+
+SEMANTIC_SUBSTRING_PRIMITIVE{
+TYPE:"STRING_PROCEDURE";
+PURPOSE:"Returns LENGTH characters from S beginning at zero-based START.";
+RESTRICTIONS:"Bounds clamp to the available string; missing S returns an empty string.";
+}
+
+SEMANTIC_SPLIT_PRIMITIVE{
+TYPE:"LIST_PROCEDURE";
+PURPOSE:"Separates S into an ordered list using DELIMITER.";
+RESTRICTIONS:"Missing S returns an empty list; empty DELIMITER is invalid in this candidate.";
+}
+
+SEMANTIC_JOIN_PRIMITIVE{
+TYPE:"STRING_PROCEDURE";
+PURPOSE:"Combines an ordered list with DELIMITER between adjacent members.";
+RESTRICTIONS:"Empty or missing list returns an empty string; members require string meaning or prior conversion.";
+}

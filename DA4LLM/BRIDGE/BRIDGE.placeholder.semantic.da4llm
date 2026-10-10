@@ -1,0 +1,12 @@
+#@da4llm:0.1.0-candidate;@layer:bridge;@kind:semantic;@module:bridge_placeholder;@status:placeholder;
+SEMANTIC_BRIDGE_PLACEHOLDER{
+TYPE:"NONIMPLEMENTATION";
+PURPOSE:"Keeps the BRIDGE boundary visible while no ecosystem mapping has been reviewed or promoted.";
+RESTRICTIONS:"Provides no capability mapping, tool name, argument translation, invocation behavior, or success claim.";
+}
+
+SEMANTIC_BRIDGE_STATUS{
+TYPE:"ENUM";
+PURPOSE:"Reports NOT_IMPLEMENTED for every capability request in this placeholder.";
+RESTRICTIONS:"The placeholder sets BRIDGE_PRESENT to FALSE; CORE converts absence or NOT_IMPLEMENTED into CAPABILITY_UNAVAILABLE.";
+}

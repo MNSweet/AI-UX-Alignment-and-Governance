@@ -1,0 +1,25 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:core_bootstrap;
+SEMANTIC_CORE_BOOTSTRAP{
+TYPE:"LOAD_CONTRACT";
+PURPOSE:"Verifies the minimum model-readable DA4LLM CORE context and declares its interpretation order.";
+RESTRICTIONS:"CORE may run without BRIDGE or GOVERNANCE; missing required CORE modules halt bootstrap.";
+}
+
+SEMANTIC_DA4LLM_CONTEXT{
+TYPE:"ACTIVE_CONTEXT";
+PURPOSE:"Contains the DA4LLM artifacts made available through project files, prompt attachments, or equivalent model context.";
+RESTRICTIONS:"A file not present or retrievable in active context may not be treated as loaded.";
+}
+
+SEMANTIC_CORE_READY{
+TYPE:"BOOLEAN";
+PURPOSE:"Confirms that required CORE module pairs are present, ordered, and valid for the declared version.";
+DEFAULT:"FALSE";
+RESTRICTIONS:"Does not imply BRIDGE or GOVERNANCE availability.";
+}
+
+SEMANTIC_LOAD_ORDER{
+TYPE:"ORDERED_LIST";
+PURPOSE:"Prevents meaning from being applied before the lexer, parser, opcode, and semantic contracts needed to interpret it.";
+RESTRICTIONS:"Optional layers attach only after CORE validation.";
+}

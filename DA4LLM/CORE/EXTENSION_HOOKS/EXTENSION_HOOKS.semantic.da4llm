@@ -1,0 +1,31 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:extension_hooks;
+SEMANTIC_HOOK_NAME{
+TYPE:"ENUM";
+PURPOSE:"Identifies one stable CORE lifecycle boundary available to optional GOVERNANCE.";
+RESTRICTIONS:"Allowed values are PRE_EXECUTION, PRE_CAPABILITY, POST_CAPABILITY, PRE_OUTPUT, and POST_OUTPUT.";
+}
+
+SEMANTIC_HOOK_CONTEXT{
+TYPE:"READ_ONLY_CONTEXT";
+PURPOSE:"Exposes the declared request, capability, output, trace, and diagnostic values relevant to one hook.";
+RESTRICTIONS:"GOVERNANCE may evaluate the context but may not silently rewrite CORE lexer, parser, opcode meaning, or procedure ordering.";
+}
+
+SEMANTIC_HOOK_STATUS{
+TYPE:"ENUM";
+PURPOSE:"Records NO_OP, ALLOWED, DENIED, APPROVAL_REQUIRED, LOCKED, UNLOCKED, or EXTENSION_ACTIVATED.";
+RESTRICTIONS:"Status must correspond to a declared extension action and active authority.";
+}
+
+SEMANTIC_EXTENSION_STATE{
+TYPE:"STATE_OBJECT";
+PURPOSE:"Carries locks, approvals, and activated optional paths assigned through declared CORE extension opcodes.";
+RESTRICTIONS:"May constrain or extend declared paths but may not redefine canonical CORE behavior.";
+}
+
+SEMANTIC_GOVERNANCE_OPTIONALITY{
+TYPE:"LAYER_CONTRACT";
+PURPOSE:"Allows CORE to operate when no GOVERNANCE module is present.";
+DEFAULT:"MISSING_GOVERNANCE=NO_OP";
+RESTRICTIONS:"A request may explicitly require GOVERNANCE; otherwise absence is not a CORE failure.";
+}

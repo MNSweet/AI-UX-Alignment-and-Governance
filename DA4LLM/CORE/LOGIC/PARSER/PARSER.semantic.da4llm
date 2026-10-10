@@ -1,0 +1,54 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:parser;
+SEMANTIC_PARSER_PRODUCTIONS{
+TYPE:"STRUCTURAL_SPECIFICATION";
+PURPOSE:"Declares the candidate file, logic-block, semantic-block, section, field, and action-rule productions.";
+RESTRICTIONS:"The production notation is DA4LLM bootstrap notation and does not delegate parsing to a host-language grammar library.";
+}
+
+SEMANTIC_PARSE_TREE{
+TYPE:"ORDERED_STRUCTURE";
+PURPOSE:"Preserves the directive, blocks, sections, and rules in source order.";
+RESTRICTIONS:"The parser may expose structure but may not invent omitted rules or meanings.";
+}
+
+SEMANTIC_PARSER_CURSOR{
+TYPE:"ORDERED_TOKEN_REFERENCE";
+PURPOSE:"Identifies the one token currently being incorporated into the parse tree.";
+RESTRICTIONS:"Advances monotonically from FIRST_TOKEN to the end of TOKEN_STREAM.";
+}
+
+SEMANTIC_LOGIC_BLOCK{
+TYPE:"PROCEDURE_DEFINITION";
+PURPOSE:"Declares when a procedure is eligible, which ordered rules it applies, and which state enters or leaves.";
+RESTRICTIONS:"Exactly one PRECONDITION, ACTION, and STATE section in that order.";
+}
+
+SEMANTIC_SEMANTIC_BLOCK{
+TYPE:"DECLARATIVE_CONTRACT";
+PURPOSE:"Declares meaning, type, purpose, defaults, and intrinsic restrictions consumed by logic.";
+RESTRICTIONS:"May not contain IF, transition arrows, executable opcode calls, or action ordering.";
+}
+
+SEMANTIC_CONDITION{
+TYPE:"BOOLEAN_EXPRESSION";
+PURPOSE:"Selects whether the opcode on the same action rule executes.";
+RESTRICTIONS:"Predicates must resolve from declared state or semantic defaults; unresolved execution-critical predicates are errors.";
+}
+
+SEMANTIC_ACTION_RULE{
+TYPE:"ORDERED_OPERATION";
+PURPOSE:"Binds zero or one condition to exactly one canonical opcode invocation.";
+RESTRICTIONS:"Rules evaluate top to bottom; every true rule executes; there is no implicit ELSE.";
+}
+
+SEMANTIC_STATE_SECTION{
+TYPE:"INTERFACE_CONTRACT";
+PURPOSE:"Declares inputs, outputs, tags, modes, ordering, and other procedure-visible state.";
+RESTRICTIONS:"State declarations describe the procedure boundary and do not execute by themselves.";
+}
+
+SEMANTIC_PARSE_FAILURE{
+TYPE:"DIAGNOSTIC";
+PURPOSE:"Identifies the module, block, line, and violated structural rule without guessing a repair.";
+RESTRICTIONS:"Parsing halts for the affected module; unrelated valid modules remain unchanged.";
+}

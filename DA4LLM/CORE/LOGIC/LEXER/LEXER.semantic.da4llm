@@ -1,0 +1,85 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:lexer;
+SEMANTIC_TOKEN_DEFINITIONS{
+TYPE:"LEXICAL_SPECIFICATION";
+PURPOSE:"Provides the canonical token classes consumed by LEXER_SCAN and LEXER_CLASSIFY.";
+RESTRICTIONS:"Patterns are interpreted exactly as constrained by the paired semantic entries; they are not host-language regular expressions.";
+}
+
+SEMANTIC_LEXER_SOURCE{
+TYPE:"STRING";
+PURPOSE:"Carries one complete DA4LLM source artifact exactly as supplied in context.";
+RESTRICTIONS:"UTF-8 text; control characters other than tab, carriage return, and newline are invalid.";
+}
+
+SEMANTIC_LEXER_POSITION{
+TYPE:"CURSOR|INTEGER|INTEGER";
+PURPOSE:"CURSOR identifies the current lexeme boundary while LINE and COLUMN identify its human-reviewable source location.";
+RESTRICTIONS:"CURSOR advances monotonically and cannot exceed source length; LINE and COLUMN begin at one.";
+}
+
+SEMANTIC_CURRENT_LEXEME{
+TYPE:"STRING_SLICE";
+PURPOSE:"Carries the smallest complete source segment eligible for one token classification.";
+RESTRICTIONS:"Quoted strings remain one lexeme; whitespace outside strings is never included in another lexeme.";
+}
+
+SEMANTIC_LEXER_DIRECTIVE{
+TYPE:"DIRECTIVE";
+PATTERN:"#@KEY:VALUE followed by zero or more ;@KEY:VALUE pairs and a final semicolon";
+PURPOSE:"Declares version, layer, kind, and module before the remaining source is interpreted.";
+RESTRICTIONS:"Exactly one directive line; first non-empty line; directive is metadata and is not a comment.";
+}
+
+SEMANTIC_LEXER_NAME{
+TYPE:"NAME";
+PATTERN:"[A-Z][A-Z0-9_]{0,47}";
+PURPOSE:"Names modules, procedures, variables, states, opcodes, and semantic entries.";
+RESTRICTIONS:"Uppercase canonical form; names are case-sensitive.";
+}
+
+SEMANTIC_LEXER_STRING{
+TYPE:"STRING";
+PATTERN:"Double-quoted single-line UTF-8 text with backslash escaping.";
+PURPOSE:"Preserves a literal value without asking the model to infer its type or boundaries.";
+RESTRICTIONS:"Unescaped quote and newline are invalid.";
+}
+
+SEMANTIC_LEXER_NUMBERS{
+TYPE:"INTEGER|FLOAT";
+PATTERN:"Optional minus; integer digits; float requires digits on both sides of one decimal point.";
+PURPOSE:"Provides deterministic lexical defaults when no semantic type overrides them.";
+RESTRICTIONS:"Scientific notation is deferred in this candidate.";
+}
+
+SEMANTIC_LEXER_BOOLEAN_NULL{
+TYPE:"BOOLEAN|NULL";
+PATTERN:"TRUE|FALSE|NULL";
+PURPOSE:"Provides unquoted canonical literals.";
+RESTRICTIONS:"Lowercase forms are not canonical.";
+}
+
+SEMANTIC_LEXER_OPERATORS{
+TYPE:"OPERATOR";
+PATTERN:"->|<=|>=|!=|=|!|&|>|<";
+PURPOSE:"Separates assignment, condition, transition, negation, conjunction, and comparison.";
+RESTRICTIONS:"Condition precedence is ! before & before |; parentheses are required to override precedence.";
+}
+
+SEMANTIC_LEXER_DELIMITERS{
+TYPE:"DELIMITER";
+PATTERN:"LBRACE|RBRACE|LPAREN|RPAREN|COLON|SEMICOLON|COMMA|PIPE|NEWLINE";
+PURPOSE:"Declares visible structure and auditable rule boundaries.";
+RESTRICTIONS:"Every action rule ends with semicolon and newline; braces must balance.";
+}
+
+SEMANTIC_LEXER_WHITESPACE{
+TYPE:"STRUCTURAL_CONTEXT";
+PURPOSE:"Allows human-readable indentation without making indentation executable.";
+RESTRICTIONS:"Space, tab, and carriage return are ignored outside strings; newline is always retained.";
+}
+
+SEMANTIC_LEXER_COMMENTS{
+TYPE:"FORBIDDEN";
+PURPOSE:"Prevents natural-language commentary from being mistaken for executable logic.";
+RESTRICTIONS:"No comments are allowed; explanatory text belongs in the paired semantic file.";
+}

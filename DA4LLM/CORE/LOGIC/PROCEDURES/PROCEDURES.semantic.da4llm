@@ -1,0 +1,61 @@
+#@da4llm:0.1.0-candidate;@layer:core;@kind:semantic;@module:procedures;
+SEMANTIC_EXECUTION_MODE{
+TYPE:"ENUM";
+PURPOSE:"Selects diagnostic visibility and semantic completeness requirements without changing procedure ordering.";
+DEFAULT:"NORMAL";
+RESTRICTIONS:"Allowed values are NORMAL, DEBUG, and STRICT.";
+}
+
+SEMANTIC_REQUEST{
+TYPE:"CONTEXT_OBJECT";
+PURPOSE:"Represents the current user request and the active project or prompt context available to the model.";
+RESTRICTIONS:"The procedure may not invent unavailable context or silently substitute a different request.";
+}
+
+SEMANTIC_REQUEST_PROCEDURE{
+TYPE:"PROCEDURE_REFERENCE";
+PURPOSE:"Identifies the validated DA4LLM procedure selected to handle the current request.";
+RESTRICTIONS:"An explicit procedure wins; otherwise exactly one compatible procedure must resolve without guessing among multiple candidates.";
+}
+
+SEMANTIC_COMPATIBLE_PROCEDURE{
+TYPE:"BOOLEAN_RELATION";
+PURPOSE:"Indicates that a procedure's declared precondition, inputs, scope, and purpose match the current request context.";
+RESTRICTIONS:"Similarity of wording alone is insufficient when required inputs or scope differ.";
+}
+
+SEMANTIC_RULE_CURSOR{
+TYPE:"ORDERED_REFERENCE";
+PURPOSE:"Identifies exactly one action rule during top-to-bottom evaluation.";
+RESTRICTIONS:"May advance only to the next declared rule; may not reorder or skip a true rule.";
+}
+
+SEMANTIC_PROCEDURE_STATE{
+TYPE:"STATE_OBJECT";
+PURPOSE:"Carries declared inputs, outputs, intermediate values, trace entries, and diagnostics for one procedure.";
+RESTRICTIONS:"State is local unless an opcode explicitly exports it.";
+}
+
+SEMANTIC_OUTPUT{
+TYPE:"ANY_DECLARED";
+PURPOSE:"Carries the value explicitly returned by the active request procedure.";
+RESTRICTIONS:"Output remains subject to PRE_OUTPUT and POST_OUTPUT hooks when GOVERNANCE is present.";
+}
+
+SEMANTIC_TRACE{
+TYPE:"ORDERED_LIST";
+PURPOSE:"Records evaluated procedures, executed opcodes, capability outcomes, hook dispatches, and failures.";
+RESTRICTIONS:"Trace records observations and may not alter execution.";
+}
+
+SEMANTIC_DIAGNOSTICS{
+TYPE:"ORDERED_LIST";
+PURPOSE:"Carries typed warnings and errors produced by validation or execution.";
+RESTRICTIONS:"Execution-critical errors are never suppressed; noncritical semantic warnings follow EXECUTION_MODE.";
+}
+
+SEMANTIC_GENERAL_PROCEDURES{
+TYPE:"INTERSECTS|CLAMP|COALESCE";
+PURPOSE:"Preserves reviewed domain-neutral utility behavior from the legacy procedure library.";
+RESTRICTIONS:"No domain-package procedure is part of CORE.";
+}

@@ -14,7 +14,11 @@ DA4LLM stands for **D**eterministic **A**rchitecture for **L**arge **L**anguage 
 
 ## Current scope
 
-This bootstrap establishes repository topology and truthful project documentation. It does not migrate the full harness, promote candidate specifications, or rewrite legacy content.
+The repository contains the first language-native DA4LLM CORE candidate. DA4LLM is a prompt-native, in-context language: its files enter a model's active context through project files, prompt attachments, or an equivalent context-loading mechanism, and the model interprets the declared lexer, parser, procedures, opcodes, and semantics.
+
+DA4LLM is not implemented in a host programming language. Conventional software may later provide optional authoring or conformance tools, but such tooling is not CORE and is not required to interpret DA4LLM.
+
+The current files are reviewable `0.1.0-candidate` artifacts, not a stable release. BRIDGE and GOVERNANCE remain paired placeholders with no provider mapping or policy implementation.
 
 The Google Drive DA4LLM workspace remains the staging and audit context for source selection. Promotion into DA4LLM requires a recorded source, destination package, decision, rationale, conflict or override note, and test requirement. Candidate and staging documents are not authoritative specifications merely because they are referenced here.
 
@@ -22,7 +26,7 @@ The Google Drive DA4LLM workspace remains the staging and audit context for sour
 
 Development proceeds in this order:
 
-1. Stabilize the small, provider-neutral `CORE`.
+1. Review and stabilize the small, model-readable `CORE` language candidate.
 2. Add concrete provider and runtime mappings in `BRIDGE`.
 3. Attach the separate `GOVERNANCE` layer without changing CORE parsing or control semantics.
 

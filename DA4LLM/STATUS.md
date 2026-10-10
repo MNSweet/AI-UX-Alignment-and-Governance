@@ -2,29 +2,35 @@
 
 ## Current phase
 
-**Bootstrap structure / pre-release-candidate documentation**
+**Language-native CORE candidate / pre-release review**
 
-This repository now identifies DA4LLM as the active architecture and provides package boundaries for CORE, BRIDGE, GOVERNANCE, TESTS, and supporting documentation.
+DA4LLM remains the active architecture. The repository now contains a first model-readable CORE candidate expressed in DA4LLM's own paired logic and semantic files.
 
 ## Included in this phase
 
-- DA4LLM directory topology and entrypoint documentation.
-- CORE, BRIDGE, GOVERNANCE, and TESTS responsibility boundaries.
-- Migration mapping for preserved legacy projects.
-- Deprecation and legacy notices that do not alter historical contents.
+- CORE bootstrap and explicit interpretation order.
+- Lexer and parser logic with paired semantic contracts.
+- General procedures, validator, execution modes, and semantic precedence.
+- Canonical opcode meanings and primitive procedures.
+- Generic `CALL_CAPABILITY` and deterministic `CAPABILITY_UNAVAILABLE` behavior.
+- Optional GOVERNANCE lifecycle hooks.
+- Paired nonimplementation placeholders for BRIDGE and GOVERNANCE.
+- Language-native conformance fixtures.
 
 ## Not included in this phase
 
-- Full harness or parser migration.
-- Promotion of candidate CORE files into authoritative specifications.
+- Promotion of candidate CORE files into an authoritative release.
 - Provider-specific bridge implementations.
+- HAIL, Parity Share, DDD, or other governance-policy implementations.
+- Domain-application logic, data, weighting, personal information, or domain behavior.
+- A host-language interpreter or required software runtime.
 - Rewriting, moving, renaming, or deleting legacy artifacts.
-- Resolution of open operation, syntax, capability, versioning, or output-contract decisions.
+- Final syntax, versioning, coercion, capability registry, or output-contract decisions.
 
 ## Promotion gate
 
-An artifact is not promoted into a DA4LLM release candidate until the selection ledger records its source, destination package, decision, rationale, conflict or override note, and test requirement. Candidate notes remain review material until that gate is satisfied and approved.
+The candidate files normalize approved architecture and reviewed source lineage without promoting legacy material wholesale. A stable release still requires selection-ledger decisions, rationale, conflict or override notes, and conformance requirements.
 
 ## Next controlled phase
 
-Review the selected CORE candidates and resolve their open decisions before adding stable top-level CORE files. BRIDGE and GOVERNANCE implementation follows CORE stabilization.
+Review the candidate lexer, parser, opcode registry, primitive behavior, semantic contracts, and conformance traces. BRIDGE mappings and GOVERNANCE modules follow as separate reviewed changes.

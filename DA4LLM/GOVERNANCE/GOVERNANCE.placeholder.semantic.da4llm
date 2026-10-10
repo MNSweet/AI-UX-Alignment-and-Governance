@@ -1,0 +1,12 @@
+#@da4llm:0.1.0-candidate;@layer:governance;@kind:semantic;@module:governance_placeholder;@status:placeholder;
+SEMANTIC_GOVERNANCE_PLACEHOLDER{
+TYPE:"NONIMPLEMENTATION";
+PURPOSE:"Keeps the GOVERNANCE boundary visible while HAIL, Parity Share, DDD, and related material await validity and ecosystem review.";
+RESTRICTIONS:"Provides no policy, lock, approval gate, dissent rule, or behavioral claim.";
+}
+
+SEMANTIC_GOVERNANCE_STATUS{
+TYPE:"ENUM";
+PURPOSE:"Reports NOT_IMPLEMENTED when GOVERNANCE is explicitly requested from this placeholder.";
+RESTRICTIONS:"The placeholder sets GOVERNANCE_PRESENT to FALSE; CORE otherwise treats absent GOVERNANCE as a valid no-op.";
+}
